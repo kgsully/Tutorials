@@ -1,0 +1,33 @@
+.order-summary-container {
+    background-color: rgba(10, 10, 10, .05);
+    box-shadow: 1px 2px 3px -1px lightgray;
+    border: 1px solid lightgray;
+    border-radius: 10px;
+    padding: 1rem;
+    display: flex;
+    flex-direction: column;
+}
+
+.order-summary-header {
+    margin: 0.2rem 0;
+    padding-bottom: .1rem;
+    border-bottom: 1px solid darkgray;
+}
+
+.order-summary-details {
+    display: flex;
+    font-size: large;
+    margin: 1rem .2rem .5rem .2rem;
+    align-items: center;
+    justify-content: space-between;
+}
+
+.order-summary-total-container {
+    display: flex;
+    gap: 1rem;
+    align-items: center;
+}
+
+.order-summary-total-container span {
+    display: inline-block;
+}

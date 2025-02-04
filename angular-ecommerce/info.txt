@@ -1,0 +1,3 @@
+Angular 19 E-Commerce App Basic tutorial based upon
+
+https://www.youtube.com/watch?v=RNr1QZM4A38

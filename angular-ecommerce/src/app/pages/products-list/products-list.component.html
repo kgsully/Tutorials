@@ -1,0 +1,9 @@
+<div class="product-list">
+    <!-- NEW functionality @for -->
+    <!-- Note that the 'track' value is the index, in React it would be the 'key' -->
+    @for (product of products(); track product.id) {
+        <!-- <div>{{ product.title }}</div> -->
+        <!-- Remember that when using [], this indicates that the value specified in the "" is an expression or variable -->
+        <app-product-card [product]="product"/>
+    }
+</div>

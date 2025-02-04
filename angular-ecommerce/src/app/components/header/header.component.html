@@ -1,0 +1,20 @@
+<div class="header">
+    <!-- Initial static text span for "My Store" -->
+    <!-- <span class="home">My Store</span> -->
+    <button class="home-button" routerLink="">My Store</button>
+
+
+    <!-- Using square brackets for any of the HTML properties in angular means that it will accept an expression  -->
+    <!-- Defining custom event handler (btnClicked) to handle event propagated or 'bubbled up' from the button's output emit -->
+    <!-- <app-primary-button [label]="cartBtnLabel()" (btnClicked)="showButtonClicked()"/> -->
+
+    <!-- Example using static text -->
+    <!-- <app-primary-button label="Cart" (btnClicked)="showButtonClicked()"/> -->
+
+    <!-- Example using an event handler and the dependency injected cartService -->
+    <!-- Using a dynamic label value set to an expression that uses the dependency injected cartService.cart() to display how many items have been added -->
+    <!-- <app-primary-button [label]="'Cart (' + cartService.cart().length + ')'" (btnClicked)="showButtonClicked()"/> -->
+
+    <!-- Navigation example using the router link directive to direct the user to /cart upon click -->
+    <app-primary-button [label]="'Cart (' + cartService.cart().length + ')'" routerLink="/cart"/>
+</div>

@@ -1,0 +1,10 @@
+<div class="cart-item-container">
+    <div class="cart-item-img-desc">
+        <img [src]="item().image" class="cart-item-img"/>
+        <div class="cart-item-info-container">
+            <span class="cart-item-title">{{ item().title }}</span>
+            <span class="cart-item-price">{{ '$' + item().price }}</span>
+        </div>
+    </div>
+    <app-button label="Remove" (btnClicked)="cartService.removeFromCart(item().id)"/>
+</div>

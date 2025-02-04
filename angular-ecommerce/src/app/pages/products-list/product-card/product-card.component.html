@@ -1,0 +1,23 @@
+<!-- have to use product() as it is a signal which is a function -->
+<!-- <p>{{ product().title }}</p> -->
+
+<div class="product-card">
+    <div class="product-image-container">
+        <img [src]="product().image" class="product-image" />
+    </div>
+    <div class="product-info">
+        <span class="product-info-title">{{ product().title }}</span>
+        <span class="product-info-price">{{ '$' + product().price }}</span>
+        <!-- appending an additional class to the button to add some margin spacing for this specific use case -->
+        <app-primary-button label="Add to Cart" class="product-card-add-button" (btnClicked)="cartService.addToCart(product())"/>
+    </div>
+
+    <!-- Can add contitional classes by using an expression (using [] and in this case, a ternary statement with class names) -->
+    <span class="product-card-stock" [class]="product().stock ? 'product-card-stock-green' : 'product-card-stock-red'">
+        @if (product().stock) {
+            {{ product().stock}} left
+        } @else {
+            Out of Stock
+        }
+    </span>
+</div>

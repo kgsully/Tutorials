@@ -1,0 +1,10 @@
+<div class="order-summary-container">
+    <h2 class="order-summary-header">Order Summary</h2>
+    <div class="order-summary-details">
+        <div class="order-summary-total-container">
+            <span >Total</span>
+            <span >{{ '$' + total() }}</span>
+        </div>
+        <app-primary-button label="Proceed to Checkout" (btnClicked)="checkoutButtonClicked()"/>
+    </div>
+</div>
