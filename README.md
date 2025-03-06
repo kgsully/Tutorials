@@ -1,2 +1,0 @@
-# Tutorials
-Various Coding Tutorials
