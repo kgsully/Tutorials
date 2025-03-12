@@ -1,8 +1,26 @@
+<!--
+-------------------------------------------------------------------------------------------------------------------------------------------------------
+NOTES:
+-------------------------------------------------------------------------------------------------------------------------------------------------------
+1. The bracket syntax [] speficies a binding of an attribute/property. If there is no property, use the attr. prefix to specify it is an attribute
+2. The parenthesis syntax () specifies binding of an event to a function in the class, similar to the syntax -> onclick
+3. [(ngModel)] allows us to specify that we want to bind the value of the input with a property on the class
+4. Event (ngModelChange) only occurs when bound ngModel value changes and it will call the callback function specified. As such, this event
+   can only be used on elements that use the ngModel directive (wouldn't make sense to use it otherwise)
+5. When using the event binding (ngModelChange), the $event passed into the bound method is NOT a normal event,
+   but actually contains new value of the model
+
+General:
+G1. for the event bindings such as (click), you can pass $event to the function and it will pass the entire event to the component for use
+    which will give a lot of info about the event itself
+-->
+
 <div class = "container">
 
   <form class="row mt-3 gx-3 gy-2 align-items-center justify-content-center">
     <div class="col-sm-6">
       <label class="visually-hidden" for="specificSizeInputName">Wish</label>
+      <!-- See note 3 -->
       <input type="text" name="new-wish-text" class="form-control" [(ngModel)]="newWishText">
     </div>
     <div class="col-auto">
@@ -16,21 +34,24 @@
 
   <div class="row mt-3">
     <div class="col-sm-2">
+      <!-- See note 4 -->
+      <!-- To use ngModelChange event, add the following to the <select> attributes/properties after [(ngModel)] -->
+      <!-- (ngModelChange)="filterChanged($event)" -->
       <select
         class="form-select"
         name="list-filter"
         [(ngModel)]="listFilter"
-        (ngModelChange)="filterChanged($event)"
       >
-      <!-- Note: the $event passed into the filterChanged() method is NOT a normal event, it actually contains the VALUE -->
         <option value="0">All</option>
         <option value="1">Unfulfilled</option>
         <option value="2">Fulfilled</option>
       </select>
     </div>
   </div>
-
-  <div class="row mt-3">
+  <!-- [wishes]="" syntax passes an item / value to the prop 'wishes' in the component as an input -->
+  <app-wish-list [wishes]="visibleItems"></app-wish-list>
+  <!-- This code was moved to wish-list.component.html and replaced with <app-wish-list> -->
+  <!-- <div class="row mt-3">
     @if(visibleItems.length === 0) {
       <div>
         There are no wishes to display!
@@ -41,6 +62,7 @@
           <li>
             <div class="form-check">
               <label class="form-check-label">
+                This line is a comment: See notes 1 & 2
                 <input
                   class="checkbox"
                   type="checkbox"
@@ -54,7 +76,8 @@
         }
       </ul>
     }
-  </div>
+  </div> -->
+
 </div>
-<!-- for the (click) event binding, can pass $event to the function and it will pass the entire event to the component for use -->
+
 <router-outlet />

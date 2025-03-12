@@ -1,0 +1,39 @@
+<!--
+-------------------------------------------------------------------------------------------------------------------------------------------------------
+NOTES:
+-------------------------------------------------------------------------------------------------------------------------------------------------------
+1. The bracket syntax [] speficies a binding of an attribute/property. If there is no property, use the attr. prefix to specify it is an attribute
+2. The parenthesis syntax () specifies binding of an event to a function in the class, similar to the syntax -> onclick
+3. visibleItems changed to wishes when passed to this component as a prop
+General:
+G1. for the event bindings such as (click), you can pass $event to the function and it will pass the entire event to the component for use
+    which will give a lot of info about the event itself
+-->
+
+<div class="row mt-3">
+    @if(wishes.length === 0) {
+      <div>
+        There are no wishes to display!
+      </div>
+    } @else {
+      <ul class="wish-list">
+        <!-- if using input signal syntax, must reference / call wishes as a function- e.g. wishes() -->
+        @for (item of wishes; track item.wishText; let idx = $index) {
+          <li>
+            <div class="form-check">
+              <label class="form-check-label">
+                <!-- See notes 1 & 2 -->
+                <input
+                  class="checkbox"
+                  type="checkbox"
+                  [checked]="item.isComplete"
+                  [attr.data-index]="idx"
+                  (click)="toggleItem(item)"
+                > {{ item.wishText }}
+              </label>
+            </div>
+          </li>
+        }
+      </ul>
+    }
+  </div>
