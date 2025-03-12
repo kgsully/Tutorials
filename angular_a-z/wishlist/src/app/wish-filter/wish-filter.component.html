@@ -1,0 +1,33 @@
+<!--
+-------------------------------------------------------------------------------------------------------------------------------------------------------
+NOTES:
+-------------------------------------------------------------------------------------------------------------------------------------------------------
+1. The bracket syntax [] speficies a binding of an attribute/property. If there is no property, use the attr. prefix to specify it is an attribute
+2. The parenthesis syntax () specifies binding of an event to a function in the class, similar to the syntax -> onclick
+3. [(ngModel)] allows us to specify that we want to bind the value of the input with a property on the class
+4. Event (ngModelChange) only occurs when bound ngModel value changes and it will call the callback function specified. As such, this event
+   can only be used on elements that use the ngModel directive (wouldn't make sense to use it otherwise)
+5. When using the event binding (ngModelChange), the $event passed into the bound method is NOT a normal event,
+   but actually contains new value of the model
+6. Could define a function within the component TS file to perform this functionality, but is arguably more readable and easier to just define the
+   functionality in-line
+7. The $event object passed by items.push($event) is NOT a normal event, but contains the VALUE from the event emitter from the add-wish-form component
+General:
+G1. for the event bindings such as (click), you can pass $event to the function and it will pass the entire event to the component for use
+    which will give a lot of info about the event itself
+-->
+
+<div class="col-sm-2">
+    <!-- See notes 4, & 5 -->
+    <!-- To use ngModelChange event, add the following to the <select> attributes/properties after [(ngModel)] -->
+    <select
+      class="form-select"
+      name="list-filter"
+      [(ngModel)]="listFilter"
+      (ngModelChange)="changeFilter($event)"
+    >
+      <option value="0">All</option>
+      <option value="1">Unfulfilled</option>
+      <option value="2">Fulfilled</option>
+    </select>
+  </div>

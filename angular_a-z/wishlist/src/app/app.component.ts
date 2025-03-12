@@ -3,16 +3,12 @@ import { FormsModule } from '@angular/forms';
 import { RouterOutlet } from '@angular/router';
 import { WishItem } from '../shared/models/wishItem';
 import { WishListComponent } from './wish-list/wish-list.component';
-
-const filters = [
-  (item: WishItem) => item,
-  (item: WishItem) => !item.isComplete,
-  (item: WishItem) => item.isComplete
-];
+import { AddWishFormComponent } from './add-wish-form/add-wish-form.component';
+import { WishFilterComponent } from './wish-filter/wish-filter.component';
 
 @Component({
   selector: 'app-root',
-  imports: [FormsModule, RouterOutlet, WishListComponent],
+  imports: [FormsModule, RouterOutlet, AddWishFormComponent, WishFilterComponent, WishListComponent],
   templateUrl: './app.component.html',
   styleUrl: './app.component.css'
 })
@@ -23,25 +19,42 @@ export class AppComponent {
     new WishItem('Get Coffee', true),
     new WishItem('Find grass that cuts itself')
   ];
-  listFilter: string = '0';  // Value bound to select HTML element for filtering items based upon fullfilled status (isComplete). This is a string as values coming from HTML elements are string type.
-  newWishText: string = '';
-  title: string = 'wishlist';
+
+  filter: any = () => {}; // initialize the filter as a function so that when the filtering function is passed from the wish-filter component it can be used
+
+}
+
+
+
+// -------------------------------------------------------------------------------------------------------------------------------------------------------------------
+// Excerpt Code from original implemntation with all functionality in the root app-component. This may have been either moved to other components,
+// or deleted entirely based upon updates to implementation
+// -------------------------------------------------------------------------------------------------------------------------------------------------------------------
+
+//----------------------------------------------------------------------------------------------------------------
+// Variables:
+//----------------------------------------------------------------------------------------------------------------
+
+  // filters Originally defined outside of class
+  // const filters = [
+  //   (item: WishItem) => item,
+  //   (item: WishItem) => !item.isComplete,
+  //   (item: WishItem) => item.isComplete
+  // ];
+
+  /// listFilter: string = '0';  // Value bound to select HTML element for filtering items based upon fullfilled status (isComplete). This is a string as values coming from HTML elements are string type.
+  // newWishText: string = '';
   // visibleItems: WishItem[] = this.items;  // Original implementation using visibleItems array
 
-  addNewWish() {
-    this.items.push(new WishItem(this.newWishText))  // defaults to false based upon the wishItem model definition
-    this.newWishText = ''; // clear the text in the box, clearing it here will clear it in the box due to 2 way binding
-  }
 
-  // Getter implementation (JS, not Angular specific) to return a filtered version of the items array based upon list filter selector value
-  // Using this method, EVERYTHING is based upon the items array. Any time the items array or any of the elements within the array are modified,
-  // it will automatically be reflected wherever it is used. This is based upon the Javascript `get` syntax which creates/binds an object property
-  // to a function that will be called when that property is looked up. See MDN docs for reference.
-  // Also -> using a 'filters' array that contains anonymous functions to be used in items.filter(), indexed based upon select input options
-  get visibleItems(): WishItem[] {
-    let value = parseInt(this.listFilter);
-    return this.items.filter(filters[value]);
-  }
+//----------------------------------------------------------------------------------------------------------------
+// Instance Methods:
+//----------------------------------------------------------------------------------------------------------------
+
+  // addNewWish() {
+  //   this.items.push(new WishItem(this.newWishText))  // defaults to false based upon the wishItem model definition
+  //   this.newWishText = ''; // clear the text in the box, clearing it here will clear it in the box due to 2 way binding
+  // }
 
   // Original implementation using visibleItems array variable with (ngModelChanged) event
   // Contained the following bugs:
@@ -65,4 +78,15 @@ export class AppComponent {
   //   item.isComplete = !item.isComplete;
   //   console.log(item);
   // }
-}
+
+  // IMPLEMENTATION CHANGE - Defined this functionality declaratively in the HTML as opposed to programatically using this getter implementation
+  // Getter implementation (JS, not Angular specific) to return a filtered version of the items array based upon list filter selector value
+  // Using this method, EVERYTHING is based upon the items array. Any time the items array or any of the elements within the array are modified,
+  // it will automatically be reflected wherever it is used. This is based upon the Javascript `get` syntax which creates/binds an object property
+  // to a function that will be called when that property is looked up. See MDN docs for reference.
+  // Also -> using a 'filters' array that contains anonymous functions to be used in items.filter(), indexed based upon select input options
+  // original implementation needed let value = parseInt(this.listFilter); in order to parse the string value provided by the select input element in the HTML
+  // NOTE ALSO that this can be removed from here (defined programatically) and put it into the html file (define declaratively)
+  // get visibleItems(): WishItem[] {
+  //   return this.items.filter(this.filter);
+  // }

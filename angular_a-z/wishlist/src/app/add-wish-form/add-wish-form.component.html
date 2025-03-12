@@ -1,0 +1,31 @@
+<!--
+-------------------------------------------------------------------------------------------------------------------------------------------------------
+NOTES:
+-------------------------------------------------------------------------------------------------------------------------------------------------------
+1. The bracket syntax [] speficies a binding of an attribute/property. If there is no property, use the attr. prefix to specify it is an attribute
+2. The parenthesis syntax () specifies binding of an event to a function in the class, similar to the syntax -> onclick
+3. [(ngModel)] allows us to specify that we want to bind the value of the input with a property on the class
+4. Event (ngModelChange) only occurs when bound ngModel value changes and it will call the callback function specified. As such, this event
+   can only be used on elements that use the ngModel directive (wouldn't make sense to use it otherwise)
+5. When using the event binding (ngModelChange), the $event passed into the bound method is NOT a normal event,
+   but actually contains new value of the model
+
+General:
+G1. for the event bindings such as (click), you can pass $event to the function and it will pass the entire event to the component for use
+    which will give a lot of info about the event itself
+-->
+
+<form class="row mt-3 gx-3 gy-2 align-items-center justify-content-center">
+    <div class="col-sm-6">
+      <label class="visually-hidden" for="specificSizeInputName">Wish</label>
+      <!-- See note 3 -->
+      <input type="text" name="new-wish-text" class="form-control" [(ngModel)]="newWishText">
+    </div>
+    <div class="col-auto">
+      <button
+        type="submit"
+        class="btn btn-primary"
+        (click)="$event.preventDefault(); addNewWish()"
+      >Add Wish</button>
+    </div>
+  </form>
