@@ -27,14 +27,18 @@ G1. for the event bindings such as (click), you can pass $event to the function 
   ></app-add-wish-form>
 
   <div class="row mt-3">
+    <!-- 1 way binding syntax: (filter)="filter = $event". 1 way binding required an emit on init to set the value, with 2 way, the value can be internally updated and it automatically propagates through the filterChange emit -->
     <app-wish-filter
-      (filter)="filter = $event"
+      [(filter)]="filter"
     ></app-wish-filter>
   </div>
   <!-- [wishes]="" syntax passes an item / value to the prop 'wishes' in the component as an input -->
   <!-- Declaratively defined definition / code for getting wishes using the getter in the component. See Excerpt for using programatically defined method -->
-  <app-wish-list [wishes]="items.filter(this.filter)"></app-wish-list>
-
+  <div class="row mt-3">
+    <app-wish-list
+      [wishes]="items.filter(this.filter)"
+    ></app-wish-list>
+  </div>
 </div>
 
 <router-outlet />

@@ -20,7 +20,8 @@ export class AppComponent {
     new WishItem('Find grass that cuts itself')
   ];
 
-  filter: any = () => {}; // initialize the filter as a function so that when the filtering function is passed from the wish-filter component it can be used
+  // If not using 2 way binding on filter, you initialize the filter as a function so that when the filtering function is passed from the wish-filter component it can be used
+  filter: any;
 
 }
 

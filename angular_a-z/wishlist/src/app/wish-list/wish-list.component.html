@@ -18,22 +18,37 @@ G1. for the event bindings such as (click), you can pass $event to the function 
     } @else {
       <ul class="wish-list">
         <!-- if using input signal syntax, must reference / call wishes as a function- e.g. wishes() -->
-        @for (item of wishes; track item.wishText; let idx = $index) {
-          <li>
-            <div class="form-check">
-              <label class="form-check-label">
-                <!-- See notes 1 & 2 -->
-                <input
-                  class="checkbox"
-                  type="checkbox"
-                  [checked]="item.isComplete"
-                  [attr.data-index]="idx"
-                  (click)="toggleItem(item)"
-                > {{ item.wishText }}
-              </label>
-            </div>
-          </li>
+        @for (wish of wishes; track wish.wishText) {
+          <app-wish-list-item
+            [wishText]="wish.wishText"
+            [(fullfilled)]="wish.isComplete"
+          ></app-wish-list-item>
+
         }
       </ul>
     }
   </div>
+
+<!--
+-------------------------------------------------------------------------------------------------------------------------------------------------------------------
+  Excerpt markdown from original implemntation with all functionality in the root app-component. This may have been either moved to other components,
+  or deleted entirely based upon updates to implementation
+-------------------------------------------------------------------------------------------------------------------------------------------------------------------
+-->
+<!-- Markdown inside the @for loop prior to moving this code into it's own component -->
+
+          <!-- <li>
+            <div class="form-check">
+              <label class="form-check-label"> -->
+                <!-- See notes 1 & 2 -->
+                <!-- in order to use this [attr.data-index], must add `let idx = $index` back into the @for definition -->
+                <!-- <input
+                  class="checkbox"
+                  type="checkbox"
+                  [checked]="wish.isComplete"
+                  [attr.data-index]="idx"
+                  (click)="toggleItem(wish)"
+                > {{ wish.wishText }}
+              </label>
+            </div>
+          </li> -->

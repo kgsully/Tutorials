@@ -12,22 +12,26 @@ NOTES:
 6. Could define a function within the component TS file to perform this functionality, but is arguably more readable and easier to just define the
    functionality in-line
 7. The $event object passed by items.push($event) is NOT a normal event, but contains the VALUE from the event emitter from the add-wish-form component
+8. The $event referenced by the (filter) event is the value from the wish-filter component, which in this case is actually an anonymous function.
+
 General:
 G1. for the event bindings such as (click), you can pass $event to the function and it will pass the entire event to the component for use
     which will give a lot of info about the event itself
 -->
 
-<div class="col-sm-2">
-    <!-- See notes 4, & 5 -->
-    <!-- To use ngModelChange event, add the following to the <select> attributes/properties after [(ngModel)] -->
-    <select
-      class="form-select"
-      name="list-filter"
-      [(ngModel)]="listFilter"
-      (ngModelChange)="updateFilter($event)"
-    >
-      <option value="0">All</option>
-      <option value="1">Unfulfilled</option>
-      <option value="2">Fulfilled</option>
-    </select>
-  </div>
+<li>
+    <div class="form-check">
+      <!-- [ngClass] directive binds a JS expression to the property ngClass -->
+      <!-- In this case, the expression will associate the use of the class 'strikeout' with the boolean value of fullfilled -->
+      <!-- could also use a ternary statement, or a getter defined in the TS that returns the object as defined below, etc. -->
+      <label class="form-check-label" [ngClass]="{'strikeout text-muted': fullfilled}">
+        <!-- See notes 1 & 2 -->
+        <input
+          class="checkbox"
+          type="checkbox"
+          [checked]="fullfilled"
+          (click)="toggleFullfilled()"
+        > {{ wishText }}
+      </label>
+    </div>
+  </li>
