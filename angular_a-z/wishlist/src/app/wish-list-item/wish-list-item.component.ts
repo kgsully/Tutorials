@@ -15,13 +15,13 @@ export class WishListItemComponent {
 
   // Note the naming convention for the variable of @Output - for 2 way bindings, in order for angular to recognize the link between the input and output,
   // need to name the output the same name as the input, but followed by `Change`.
-  @Input() fullfilled!: boolean;
-  @Output() fullfilledChange = new EventEmitter<boolean>();
+  @Input() fulfilled!: boolean;
+  @Output() fulfilledChange = new EventEmitter<boolean>();
 
-  toggleFullfilled() {
+  toggleFulfilled() {
     // Don't need to find the item in the item array because it is passed by reference
-    this.fullfilled = !this.fullfilled;
-    this.fullfilledChange.emit(this.fullfilled);
+    this.fulfilled = !this.fulfilled;
+    this.fulfilledChange.emit(this.fulfilled);
   }
 
 }

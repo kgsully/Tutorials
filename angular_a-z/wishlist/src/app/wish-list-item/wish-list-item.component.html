@@ -22,15 +22,15 @@ G1. for the event bindings such as (click), you can pass $event to the function 
 <li>
     <div class="form-check">
       <!-- [ngClass] directive binds a JS expression to the property ngClass -->
-      <!-- In this case, the expression will associate the use of the class 'strikeout' with the boolean value of fullfilled -->
+      <!-- In this case, the expression will associate the use of the class 'strikeout' with the boolean value of fulfilled -->
       <!-- could also use a ternary statement, or a getter defined in the TS that returns the object as defined below, etc. -->
-      <label class="form-check-label" [ngClass]="{'strikeout text-muted': fullfilled}">
+      <label class="form-check-label" [ngClass]="{'strikeout text-muted': fulfilled}">
         <!-- See notes 1 & 2 -->
         <input
           class="checkbox"
           type="checkbox"
-          [checked]="fullfilled"
-          (click)="toggleFullfilled()"
+          [checked]="fulfilled"
+          (click)="toggleFulfilled()"
         > {{ wishText }}
       </label>
     </div>
