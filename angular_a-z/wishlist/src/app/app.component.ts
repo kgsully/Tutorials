@@ -1,4 +1,4 @@
-import { Component } from '@angular/core';
+import { Component, OnInit } from '@angular/core';
 import { FormsModule } from '@angular/forms';
 import { RouterOutlet } from '@angular/router';
 import { WishListComponent } from './wish-list/wish-list.component';
@@ -7,6 +7,9 @@ import { WishFilterComponent } from './wish-filter/wish-filter.component';
 import { WishItem } from '../shared/models/wishItem';
 // import events from './../shared/services/EventService';  // Original import before dependency injection refactor
 import { EventService } from '../shared/services/EventService';
+import { WishService } from './wish.service';
+
+
 
 
 @Component({
@@ -15,18 +18,19 @@ import { EventService } from '../shared/services/EventService';
   templateUrl: './app.component.html',
   styleUrl: './app.component.css'
 })
-export class AppComponent {
+export class AppComponent implements OnInit {
 
-  items: WishItem[] = [
-    new WishItem('Learn Angular'),
-    new WishItem('Get Coffee', true),
-    new WishItem('Find grass that cuts itself')
-  ];
+  items!: WishItem[];
+  // items: WishItem[] = [
+  //   new WishItem('Learn Angular'),
+  //   new WishItem('Get Coffee', true),
+  //   new WishItem('Find grass that cuts itself')
+  // ];
 
   // Constructor -
   // events: EventService added to constructor for dependency injection. Original implementation had no constructor arguments.
   // Don't need to make it a property with private as it is only being used within the constructor
-  constructor(events: EventService) {
+  constructor(events: EventService, private wishService: WishService) {
     // access the Event Bus defined in the shared EventService
     events.listen('removeWish', (wish: any) => { // added this. prefix to events for dependency injection refactor
       let index = this.items.indexOf(wish);
@@ -34,10 +38,17 @@ export class AppComponent {
     })
   }
 
+  ngOnInit(): void {
+    this.wishService.getWishes().subscribe((data: any) => {
+      this.items = data;
+    })
+  }
+
   // If not using 2 way binding on filter, you initialize the filter as a function so that when the filtering function is passed from the wish-filter component it can be used
   //  tutorial said to set this to any type and don't initialize (filter: any;), however that yielded an error in the browser console NG0100 - Expression changed after it was checked
   //  As such, manually setting this to a default value
   filter = (item: WishItem) => item;
+
 
 }
 
@@ -62,6 +73,13 @@ export class AppComponent {
   /// listFilter: string = '0';  // Value bound to select HTML element for filtering items based upon fullfilled status (isComplete). This is a string as values coming from HTML elements are string type.
   // newWishText: string = '';
   // visibleItems: WishItem[] = this.items;  // Original implementation using visibleItems array
+
+  // items array used prior to refactor for retrieving wishes from the JSON file (mimicing HTTP request from an API endpoint)
+  // items: WishItem[] = [
+  //   new WishItem('Learn Angular'),
+  //   new WishItem('Get Coffee', true),
+  //   new WishItem('Find grass that cuts itself')
+  // ];
 
 
 //----------------------------------------------------------------------------------------------------------------
