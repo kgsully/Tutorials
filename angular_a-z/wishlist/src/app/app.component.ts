@@ -1,10 +1,12 @@
 import { Component } from '@angular/core';
 import { FormsModule } from '@angular/forms';
 import { RouterOutlet } from '@angular/router';
-import { WishItem } from '../shared/models/wishItem';
 import { WishListComponent } from './wish-list/wish-list.component';
 import { AddWishFormComponent } from './add-wish-form/add-wish-form.component';
 import { WishFilterComponent } from './wish-filter/wish-filter.component';
+import { WishItem } from '../shared/models/wishItem';
+import events from './../shared/services/EventService';
+
 
 @Component({
   selector: 'app-root',
@@ -20,8 +22,18 @@ export class AppComponent {
     new WishItem('Find grass that cuts itself')
   ];
 
+  constructor() {
+    // access the Event Bus defined in the shared EventService
+    events.listen('removeWish', (wish: any) => {
+      let index = this.items.indexOf(wish);
+      this.items.splice(index, 1)
+    })
+  }
+
   // If not using 2 way binding on filter, you initialize the filter as a function so that when the filtering function is passed from the wish-filter component it can be used
-  filter: any;
+  //  tutorial said to set this to any type and don't initialize (filter: any;), however that yielded an error in the browser console NG0100 - Expression changed after it was checked
+  //  As such, manually setting this to a default value
+  filter = (item: WishItem) => item;
 
 }
 

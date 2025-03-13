@@ -25,7 +25,7 @@ export class WishFilterComponent implements OnInit{
   // since the filter variable within app-component initializes to an empty function (() => {}), no filtering will be applied until the value is set
   // ngOnInit will fire when the component is initialized and will emit a default value for the filter to app-component to pass to the wish-list component
   ngOnInit(): void {
-    // this.filter.emit(filters[0]); This code was when there was only a 1 way binding set up
+    // this.filter.emit(filters[0]); // This code was when there was only a 1 way binding set up
     this.updateFilter('0');
   }
 

@@ -19,14 +19,42 @@ G1. for the event bindings such as (click), you can pass $event to the function 
     which will give a lot of info about the event itself
 -->
 
-<li>
+<li class="d-flex justify-content-between">
     <div class="form-check">
       <!-- [ngClass] directive binds a JS expression to the property ngClass -->
       <!-- In this case, the expression will associate the use of the class 'strikeout' with the boolean value of fulfilled -->
       <!-- could also use a ternary statement, or a getter defined in the TS that returns the object as defined below, etc. -->
-      <label class="form-check-label" [ngClass]="{'strikeout text-muted': fulfilled}">
+      <label class="form-check-label" [ngClass]="{'strikeout text-muted': wish.isComplete}">
         <!-- See notes 1 & 2 -->
         <input
+          class="checkbox"
+          type="checkbox"
+          [checked]="wish.isComplete"
+          (click)="toggleFulfilled()"
+        > {{ wish.wishText }}
+      </label>
+    </div>
+    <div>
+      <button type="button" class="btn-close" (click)="removeWish()"></button>
+    </div>
+  </li>
+
+<!--
+-------------------------------------------------------------------------------------------------------------------------------------------------------------------
+  Excerpt markdown from original implemntation with all functionality in the root app-component. This may have been either moved to other components,
+  or deleted entirely based upon updates to implementation
+-------------------------------------------------------------------------------------------------------------------------------------------------------------------
+-->
+
+<!-- Original markdown for individual object field passing instead of the whole wish object -->
+  <!-- <li class="d-flex justify-content-between"></li>
+    <div class="form-check"> -->
+      <!-- [ngClass] directive binds a JS expression to the property ngClass -->
+      <!-- In this case, the expression will associate the use of the class 'strikeout' with the boolean value of fulfilled -->
+      <!-- could also use a ternary statement, or a getter defined in the TS that returns the object as defined below, etc. -->
+      <!-- <label class="form-check-label" [ngClass]="{'strikeout text-muted': fulfilled}"> -->
+        <!-- See notes 1 & 2 -->
+        <!-- <input
           class="checkbox"
           type="checkbox"
           [checked]="fulfilled"
@@ -34,4 +62,7 @@ G1. for the event bindings such as (click), you can pass $event to the function 
         > {{ wishText }}
       </label>
     </div>
-  </li>
+    <div>
+      <button type="button" class="btn-close" (click)="removeWish()"></button>
+    </div>
+  </li> -->

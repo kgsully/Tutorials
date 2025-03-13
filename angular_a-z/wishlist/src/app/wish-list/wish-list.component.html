@@ -20,10 +20,8 @@ G1. for the event bindings such as (click), you can pass $event to the function 
         <!-- if using input signal syntax, must reference / call wishes as a function- e.g. wishes() -->
         @for (wish of wishes; track wish.wishText) {
           <app-wish-list-item
-            [wishText]="wish.wishText"
-            [(fulfilled)]="wish.isComplete"
+            [wish]="wish"
           ></app-wish-list-item>
-
         }
       </ul>
     }
@@ -52,3 +50,9 @@ G1. for the event bindings such as (click), you can pass $event to the function 
               </label>
             </div>
           </li> -->
+
+<!-- Original implementation passing individual object fields -->
+          <!-- <app-wish-list-item
+            [wishText]="wish.wishText"
+            [(fulfilled)]="wish.isComplete"
+          ></app-wish-list-item> -->
