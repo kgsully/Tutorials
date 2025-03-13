@@ -5,7 +5,8 @@ import { WishListComponent } from './wish-list/wish-list.component';
 import { AddWishFormComponent } from './add-wish-form/add-wish-form.component';
 import { WishFilterComponent } from './wish-filter/wish-filter.component';
 import { WishItem } from '../shared/models/wishItem';
-import events from './../shared/services/EventService';
+// import events from './../shared/services/EventService';  // Original import before dependency injection refactor
+import { EventService } from '../shared/services/EventService';
 
 
 @Component({
@@ -22,9 +23,12 @@ export class AppComponent {
     new WishItem('Find grass that cuts itself')
   ];
 
-  constructor() {
+  // Constructor -
+  // events: EventService added to constructor for dependency injection. Original implementation had no constructor arguments.
+  // Don't need to make it a property with private as it is only being used within the constructor
+  constructor(events: EventService) {
     // access the Event Bus defined in the shared EventService
-    events.listen('removeWish', (wish: any) => {
+    events.listen('removeWish', (wish: any) => { // added this. prefix to events for dependency injection refactor
       let index = this.items.indexOf(wish);
       this.items.splice(index, 1)
     })

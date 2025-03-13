@@ -1,7 +1,8 @@
 import { CommonModule } from '@angular/common';
 import { Component, Input, Output, EventEmitter } from '@angular/core';
 import { WishItem } from '../../shared/models/wishItem';
-import events from './../../shared/services/EventService';
+// import events from './../../shared/services/EventService';  // Original import before dependency injection refactor
+import { EventService } from './../../shared/services/EventService';
 
 @Component({
   selector: 'app-wish-list-item',
@@ -22,8 +23,10 @@ export class WishListItemComponent {
   // @Input() fulfilled!: boolean;
   // @Output() fulfilledChange = new EventEmitter<boolean>();
 
+  constructor (private events: EventService) {} // constructor added for dependency injection refactor
+
   removeWish() {
-    events.emit('removeWish', this.wish);
+    this.events.emit('removeWish', this.wish);  // added this. prefix for dependency injection refactor
   }
 
   toggleFulfilled() {

@@ -1,8 +1,18 @@
+import { Injectable } from "@angular/core";
 import { Observable, Subject } from "rxjs";
 
 // This is defining an Event Bus to allow events to be subscribed to and used everywhere within the application without having to pass emitted events up to parent
 // objects and then subsquently passed down to different child objects. This can get tedious and unmaintainable as the application grows
-class EventService {
+
+// Need to add the @Injectable() decorator in order for Angular to know that it can be injected as a dependency in other classes.
+// You can pass an object with the key providedIn to define where it can/should be injected into (as an option).
+// You can also specify providedIn: 'root' to make it an application-level injector such that it be available throughout the ENTIRE application.
+// Can also specify providedIn: 'platform' to make it available to multiple angular applications
+// Can ALSO specify individually in the 'providers: []' in the components
+@Injectable(
+    { providedIn: 'root' }
+)
+export class EventService { // Original implementation didn't export the entire class, it default exported an instance (thereby creating a singleton)
     private subject = new Subject();
 
     emit(eventName: string, payload: any) {
@@ -25,10 +35,10 @@ class EventService {
     }
 }
 
-// Exporting an instance of EventService.
+// Exporting an instance of EventService. This is used when NOT using dependency injection
 // Note that per TS convention, this a singleton. This is because the module exports the RESULT of the evaluation, which is only evaluated ONCE.
 // ALTERNATIVELY- see https://stackoverflow.com/a/54351936 for another singleton convention
-export default new EventService();
+// export default new EventService();
 
 // Notes on how this works:
 
