@@ -1,5 +1,5 @@
 import { Component } from '@angular/core';
-import { ReactiveFormsModule, FormControl, FormGroup } from '@angular/forms'; // Using ReactiveFormsModules instead of FormsModule
+import { ReactiveFormsModule, FormControl, FormGroup, Validators } from '@angular/forms'; // Using ReactiveFormsModules instead of FormsModule
 
 @Component({
   selector: 'app-contact',
@@ -25,10 +25,11 @@ export class ContactComponent {
 
   // FormGroup used to group related form items. Accepts the argument of an object which allows us to define the data model
   // It allows us to receive an object of the same type as the data model upon user submittal, and also allows us to check the validity of data from the form all at once
+  // First argument sets the initial value, subsequent argument(s) can be used to define validators (can be an array). Here we are using the Angular Validators library imported from forms
   contactForm = new FormGroup({
-    senderName: new FormControl(''),
-    senderEmail: new FormControl(''),
-    senderMessage: new FormControl(''),
+    senderName: new FormControl('', Validators.required),
+    senderEmail: new FormControl('', [Validators.required, Validators.email]),
+    senderMessage: new FormControl('', [Validators.required, Validators.minLength(10)]),
   })
 
 
