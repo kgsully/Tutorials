@@ -1,5 +1,10 @@
 import { Component } from '@angular/core';
 import { ReactiveFormsModule, FormControl, FormGroup, Validators } from '@angular/forms'; // Using ReactiveFormsModules instead of FormsModule
+// import { invalidEmailDomain } from './invalidEmailDomain'; // removed for dynamic validator function refactor
+import { createInvalidDomainValidator } from './invalidEmailDomain';
+
+// Refactored to be able to create a validator function dynamically
+const invalidEmailDomain = createInvalidDomainValidator(['gmail.com', 'yahoo.com', 'hotmail.com']);
 
 @Component({
   selector: 'app-contact',
@@ -28,7 +33,7 @@ export class ContactComponent {
   // First argument sets the initial value, subsequent argument(s) can be used to define validators (can be an array). Here we are using the Angular Validators library imported from forms
   contactForm = new FormGroup({
     senderName: new FormControl('', Validators.required),
-    senderEmail: new FormControl('', [Validators.required, Validators.email]),
+    senderEmail: new FormControl('', [Validators.required, Validators.email, invalidEmailDomain]),
     senderMessage: new FormControl('', [Validators.required, Validators.minLength(10)]),
   })
 

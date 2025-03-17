@@ -43,6 +43,9 @@
             @if(contactForm.get('senderEmail')?.hasError('email')) {
                 <small class="text-danger">Please provide a valid email address</small>
             }
+            @if(contactForm.get('senderEmail')?.hasError('invalidEmailDomain')) {
+                <small class="text-danger">The email provider is not allowed</small>
+            }
         }
     </div>
 
