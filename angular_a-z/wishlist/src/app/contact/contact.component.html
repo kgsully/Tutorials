@@ -1,7 +1,50 @@
 <!-- Simple form to demonstrate reactive form functionality -->
 
+<!-- Difference in using form group vs individual fields / properties:
+        - add the [formGroup] property / directive on the form ITSELF
+        - instead of the directive `[formControl]`, use the property `formControlName` and bind to the keys in the group object
+        - instead of listening for the `(click)` event on the button directly, listen for the `(ngSubmit)` event on the form container itself
+            (do it this way so that the user can submit the form by either clicking on a button with a type of 'submit', OR by using the Enter key on the keyboard)
+-->
+
+<form class="container p-5"
+      [formGroup]="contactForm"
+      (ngSubmit)="$event.preventDefault(); submitForm()"
+>
+    <div class="mb-3">
+        <label class="form-label">Your name</label>
+        <input type="text"
+               class="form-control"
+               formControlName="senderName"
+               >
+            </div>
+            <div class="mb-3">
+                <label class="form-label">Your email address</label>
+                <input type="email"
+                class="form-control"
+                formControlName="senderEmail"
+                >
+            </div>
+    <div class="mb-3">
+        <label class="form-label">Message</label>
+        <textarea class="form-control"
+                  rows="3"
+                  formControlName="senderMessage"
+
+                  ></textarea>
+                </div>
+                <div class="mb-3">
+                    <button type="submit"
+                class="btn btn-primary"
+                >Send Message</button>
+            </div>
+        </form>
+
+
+<!-- Code prior to refactoring for using form group -->
 <!-- Properties `formControl` (indicated by square brackets) used on inputs and set to the corresponding FormControl objects defined in the class -->
 
+<!--
 <form class="container p-5">
     <div class="mb-3">
         <label class="form-label">Your name</label>
@@ -32,3 +75,4 @@
         >Send Message</button>
     </div>
 </form>
+ -->
