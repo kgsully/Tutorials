@@ -1,11 +1,14 @@
 import { Component } from '@angular/core';
 import { RouterOutlet, RouterModule, Router } from '@angular/router'; // Can alternatively import JUST RouterLink here and specify it in the imports array
+import { ProductsComponent } from './products/products.component';
 
 // SEE app.routes.ts FOR MORE INFORMATION - THIS IS A BASIC APPLICATION TO ILLUSTRATE ANGULAR ROUTER USAGE
+// In this example, the app-component is more of a container for everything else, it doesn't handle the functionality of loading data, etc
+//   the individual pages are responsible for getting their own data, performing their own validations, handling their own events, etc
 
 @Component({
   selector: 'app-root',
-  imports: [RouterOutlet, RouterModule],
+  imports: [RouterOutlet, RouterModule, ProductsComponent],
   templateUrl: './app.component.html',
   styleUrl: './app.component.css'
 })

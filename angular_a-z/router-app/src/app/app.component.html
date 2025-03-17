@@ -1,19 +1,11 @@
-
-<style>
-</style>
-
 <div>
   <p>App Component Works!</p>
-  <!-- Links can be handled using an anchor tag, and instead of an 'href', you use 'routerLink' -->
-  <p>
+  <div class="links-container">
+    <!-- Links can be handled using an anchor tag, and instead of an 'href', you use 'routerLink' -->
     <a routerLink="">Home</a>
-  </p>
-  <p>
     <a routerLink="second">Second</a>
-  </p>
-  <p>
     <a href="#" (click)="$event.preventDefault(); goToContact()">Contact Us</a>
-  </p>
+  </div>
 </div>
 
 <router-outlet />
