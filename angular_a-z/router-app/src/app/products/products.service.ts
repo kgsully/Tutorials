@@ -15,7 +15,12 @@ export class ProductsService {
   constructor() { }
 
   // Not just going to provide the array as a return, but going to provide an observable that will then provide access to the data array when it is subscribed to
+  // That's what the of() method does, and it is from rxJS
   getAllProducts() {
     return of(this.data);
+  }
+
+  getProduct(id: number) {
+    return of(this.data.find(p => p.id === id));
   }
 }

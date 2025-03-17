@@ -1,7 +1,13 @@
 <div class="container">
     @for(product of products; track product.id) {
         <div class="row">
-            <h4>{{ product.name }}</h4>
+            <h4>
+                <!-- Note that this is an array that builds out the url (relative to the current URL), as such don't need 'products' as we are already at /products -->
+                <!-- Can begin it 'at' a certain url, which is indicated here by the leading slash before 'products' (otherwise it would be '/products/products/:id') -->
+                <a [routerLink]="['/products', product.id]">
+                    {{ product.name }}
+                </a>
+            </h4>
         </div>
     }
 </div>
