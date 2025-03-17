@@ -20,7 +20,7 @@ import { WishService } from './wish.service';
 })
 export class AppComponent implements OnInit {
 
-  items!: WishItem[];
+  items: WishItem[] = [];
   // items: WishItem[] = [
   //   new WishItem('Learn Angular'),
   //   new WishItem('Get Coffee', true),
@@ -38,10 +38,17 @@ export class AppComponent implements OnInit {
     })
   }
 
+  // ngOnInit fires when the component is initialized.
   ngOnInit(): void {
-    this.wishService.getWishes().subscribe((data: any) => {
-      this.items = data;
-    })
+    // the subscribe takes a callback function as it's first parameter, but also a second callback function as it's second parameter to handle errors
+    this.wishService.getWishes().subscribe(
+      (data: any) => {
+        this.items = data;
+      },
+      (error: any) => {
+        alert(error.message);
+      }
+    )
   }
 
   // If not using 2 way binding on filter, you initialize the filter as a function so that when the filtering function is passed from the wish-filter component it can be used
