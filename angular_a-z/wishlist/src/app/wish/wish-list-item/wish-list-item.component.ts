@@ -1,8 +1,8 @@
 import { CommonModule } from '@angular/common';
 import { Component, Input, Output, EventEmitter } from '@angular/core';
-import { WishItem } from '../../shared/models/wishItem';
+import { WishItem } from '../../../shared/models/wishItem';
 // import events from './../../shared/services/EventService';  // Original import before dependency injection refactor
-import { EventService } from './../../shared/services/EventService';
+import { EventService } from '../../../shared/services/EventService';
 
 @Component({
   selector: 'app-wish-list-item',
