@@ -1,0 +1,74 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Node.js File Uploader</title>
+    <style>
+        body {
+            font-family: Arial, Helvetica, sans-serif;
+            font-size: 1.5rem;
+            background-color: #333;
+            color: whitesmoke
+        }
+
+        input, button {
+            font: inherit;
+            width: max-content;
+        }
+
+        form {
+            display: flex;
+            flex-flow: column nowrap;
+            gap: 1.5rem;
+        }
+    </style>
+</head>
+<body>
+    <h1>Node.js File Uploader</h1>
+    <form id="uploadForm" enctype="multipart/form-data">
+        <input type="file" id="myFiles" accept="image/*" multiple />
+        <button>Submit</button>
+    </form>
+    <h2></h2>
+    <h3></h3>
+    <script>
+        const form = document.getElementById('uploadForm'); // select the form
+
+        const sendFiles = async () => {
+            // Object to contain the files that the user has selected
+            const myFiles = document.getElementById('myFiles').files // selecting the input element
+
+            const formData = new FormData() // define the form data
+
+            // Bind or append the file data to the form before sending it. The express fileupload package expects to get the files in form data format
+            Object.keys(myFiles).forEach(key => {
+                formData.append(myFiles.item(key).name, myFiles.item(key)) // Append each file selected to the form data, the key being the file name, and the data being the file itself. Not sure where the .item comes from...
+            });
+
+            const response = await fetch('http://localhost:3500/upload', {
+                method: 'POST',
+                body: formData
+            });
+
+            // Retrieve the response
+            const json = await response.json();
+
+            // Set info about the response onto the h2 and h3 in the HTML page
+            const h2 = document.querySelector('h2');
+            h2.textContent = `Status: ${json?.status}`
+
+            const h3 = document.querySelector('h3');
+            h3.textContent = json?.message;
+
+            // log to console
+            console.log(json);
+        }
+
+        form.addEventListener('submit', (event) => {
+            event.preventDefault();
+            sendFiles();
+        })
+    </script>
+</body>
+</html>
